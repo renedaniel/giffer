@@ -1,0 +1,96 @@
+/* Hoja de estilos para login Giffer */
+/**
+ *
+ * @author René Daniel Galicia Vázquez
+ */
+/* Centramos todo el contenido */
+body,
+    html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: table;
+  background: url('../img/gback.gif') no-repeat;
+  background-size:cover;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+form {
+  display: table;
+  margin: auto;
+}
+
+.stopfade {
+  opacity: .5;
+}
+
+/* Estilos formulario y botones */
+.btnd,
+    .btn-login {
+  background: #0cf none repeat scroll 0 0;
+  color: #fff;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  margin-top: -40px;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+.btn-login {
+  margin-bottom: -40px;
+  background-color: #3e3e3e;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.input input,
+    input {
+  background-color: #fff;
+  box-sizing: border-box;
+  color: #000;
+  font-family: "interface", "Helvetica Neue", helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  height: 40px;
+  line-height: normal;
+  margin: 0 0 10px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+::-webkit-input-placeholder {
+  color: black;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: black;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: black;
+}
+
+:-ms-input-placeholder {
+  color: black;
+}
+
+.error-message{
+  text-align: center;
+  background-color: #ff4081;
+  color: white;
+  border-radius: 25px;
+}
+
+.mensaje-alerta {
+  background-color: #e91e63;
+  border-radius: 20px;
+}
