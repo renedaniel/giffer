@@ -1,34 +1,55 @@
 <?php
 /**
- * Application level Controller
+ * Controlador padre para todos los controladores
  *
- * This file is application-wide controller file. You can put all
- * application-wide controller-related methods here.
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.Controller
- * @since         CakePHP(tm) v 0.2.9
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @author René Daniel Galicia Vázquez <renedaniel191992@gmail.com>  
  */
-
 App::uses('Controller', 'Controller');
 
-/**
- * Application Controller
- *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
- */
 class AppController extends Controller {
+
+    /**
+     * Callback que se ejecuta en todos los controladores antes de ejecutar una acción
+     *
+     * @author René Daniel Galicia Vázquez <renedaniel191992@gmail.com>  
+     * @return void
+     */
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        //Verificamos la sesión del usuario
+        $this->verificarSesion();
+    }
+
+    /**
+     * Método que válida las secciones a las que un usuario puede entrar según su tipo de cuenta
+     *
+     * @author René Daniel Galicia Vázquez <renedaniel191992@gmail.com>  
+     * @return void
+     */
+    public function verificarSesion(){
+        $paginasRestringidas = [];
+        if (!$this->Session->check('Usuario')) {
+            //Páginas restringidas para un usuario anónimo
+            $paginasRestringidas = [
+                'usuarios' => ['index', 'subirGif'],
+            ];
+        } elseif($this->Session->read('Usuario.usu_tipo') == USU) {
+            //Páginas restringidas para un usuario registrado que no es admin
+            $paginasRestringidas = [
+                'usuarios' => ['edicionUsuario', 'login', 'cambiarEstatus'],
+            ];
+        }
+        $controladorRequest = strtolower($this->request->params['controller']);
+        $accionRequest = strtolower($this->request->params['action']);
+        //Revisamos si un usuario quiere ingresar a una sección prohibida
+        foreach ($paginasRestringidas as $controlador => $acciones) {
+            foreach ($acciones as $accion) {
+                if ($controladorRequest == $controlador && $accionRequest == strtolower($accion)) {
+                    return $this->redirect(['controller' => 'principal']);
+                }
+            }
+        }
+    } 
+
 }

@@ -30,9 +30,59 @@ class UsuariosController extends AppController
     }
 
 
+    /**
+     * Método que permite a un usuario subir un gif
+     *
+     * @author René Daniel Galicia Vázquez <renedaniel191992@gmail.com>  
+     * @return void
+     */
+    public function subirGif(){
+        $this->loadModel('Gif');
+        //Guardamos los datos e indicamos si fue actualización o creación
+        if (isset($this->request->data) && !empty($this->request->data)) {
+            $datosImagen = [
+                'img_creado' => date("Y-m-d H:i:s"),
+                'img_estatus' => PENDIENTE,
+                'usuario_id' => $this->Session->read('Usuario.usuario_id'),
+            ];
+            $datosImagen = array_merge($datosImagen, $this->request->data['Gif']);
+            if ($this->Gif->save($datosImagen)) {
+                $this->Flash->success('Tu gif ha sido recibido');
+                $this->redirect('index');
+            } else {
+                //Si la imagen era válida solicitamos al usuario que la suba de nuevo
+                if (!isset($this->Gif->validationErrors['img_ruta'])) {
+                    $this->Gif->invalidate('img_ruta', 'Debe volver a seleccionar la imagen');
+                }
+            }
+        }
+        $this->set(compact('gif'));
+    }
 
-
-
+    /**
+     * Método que permite a un administrador cambiar el estatus de una imagen
+     *
+     * @author René Daniel Galicia Vázquez <renedaniel191992@gmail.com>  
+     * @param int|null $imagenId El id de la imagen que se quiere actualizar
+     * @param int|null $imagenEstatus Estatus que se le colocará a la imagen
+     * @return void
+     */
+    public function cambiarEstatus($imagenId = null, $imagenEstatus = null){
+        if (isset($imagenId) && !empty($imagenId) && isset($imagenEstatus) && !empty($imagenEstatus) && $this->request->is('ajax')) {
+            $estatusPermitidos = [PENDIENTE, RECHAZADO, APROBADO];
+            if (in_array($imagenEstatus, $estatusPermitidos)) {
+                $this->loadModel('Gif');
+                $this->Gif->id = $imagenId;
+                if ($this->Gif->saveField('img_estatus', $imagenEstatus)) {
+                    $this->layout = false;
+                    $this->response->header('imagenId', $imagenId);
+                    $this->response->header('imagenEstatus', $imagenEstatus);
+                    return $this->render('index');
+                }
+            }
+        }
+        return $this->redirect(['controller' => 'principal', 'action' => 'index']);
+    }
 
     /**
      * Método que genera la vista para que un usuario se pueda registrar o actualizar sus datos vía ajax
