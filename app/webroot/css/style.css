@@ -247,6 +247,16 @@ table.dataTable thead th{
   color: #212121 !important;
 }
 
+#mostrarCarousel.active, #mostrarMosaico.active {
+  color: #e91e63 !important;
+}
+
+.iconoImagen {
+  cursor: pointer;
+  color: #212121 !important;
+  font-size: 20px;
+}
+
 /* Colocamos el footer hasta abajo */
 * {
   margin: 0;

@@ -13,6 +13,12 @@ class Gif extends AppModel {
     public $primaryKey = 'imagen_id';
     public $recursive = -1;
 
+    public $hasMany = array(
+        'Like' => array(
+            'fields' => ['img_usu_like_id'],
+        )
+    );
+
     //Validamos los datos del modelo
     public $validate = [
         'img_nombre' => [

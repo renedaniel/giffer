@@ -2,7 +2,7 @@
 <?php echo $this->Html->css('lightbox.min.css') ?>
 <!-- Iconos para cambiar el tipo de vista -->
 <div class="right-align">
-	<a id="mostrarMosaico"><i class="fa fa-th-large"></i></a>
+	<a id="mostrarMosaico" class="active"><i class="fa fa-th-large"></i></a>
 	<a id="mostrarCarousel"><i class="fa fa-picture-o"></i></a>
 </div>
 <!-- Termina iconos para cambiar el tipo de vista -->
@@ -49,9 +49,11 @@
 	var templateCarousel = '<a onclick="cargarImagenesCarousel(this.id)" class="carousel-item" id="{id}"><img src="{urlImagen}"></a>';
 	var html = '';
 	//Generamos un contenedor para el template
-	var contenedorTemplate = '<div class="col s12 m3"><div class="card"><div class="card-image">{template}</div><div class="card-action">{social}</div></div></div>';
+	var contenedorTemplate = '<div class="col s12 m3"><div class="card"><div class="card-image">{template}</div><div class="card-action"><span>{numLikes}</span> Me gusta <i onclick="darLike({imagenId}, this);" class="fa fa-thumbs-up iconoImagen" aria-hidden="true"></i> {descargarImagen} {social}</div></div></div>';
 	//Generamos el template para los botones de compartir
 	var comTwitter = '<a class="btnz share twitter" onclick="mostrarCompartirTwitter(\'{urlImagen}\');">Compartir <i class="fa fa-twitter" aria-hidden="true"></i></a>';
+	//Generamos botón para descargar la imagen
+	var btnDescargar = '<a href="{urlImagen}" class="iconoImagen" download><i class="fa fa-download" aria-hidden="true"></i></a>';
 	//Mostramos las primeras imágenes enviadas por el controlador
 	performMostrarImagenes(imagenesIniciales);
 	var primeraCarga = true;
@@ -86,6 +88,8 @@
 	mostrarMosaico.on('click', function (e){
 		vistaCarousel.hide();
     	vistaMosaico.show('fast');
+    	mostrarMosaico.addClass('active');
+    	mostrarCarousel.removeClass('active');
     });
 
 	//Mostramos la vista de carousel al dar clic en el botón
@@ -98,6 +102,8 @@
 			cargarCarousel(offset, 1);
 			offsetCarousel += <?php echo NUM_IMAGENES ?>;
     	}
+    	mostrarCarousel.addClass('active');
+    	mostrarMosaico.removeClass('active');
     });
 
 	/**
@@ -149,16 +155,46 @@
 	* 
 	* @author René Daniel Galicia Vázquez <renedaniel191992@gmail.com>
 	* @param Array imagenes Arreglo con las imágenes que se desean agregar a la vista
+	* @return void
 	*/
 	function performMostrarImagenes(imagenes){
 		html = contenedorImagenes.html();
 		$.each(imagenes, function(index, imagen) {
 			tagTemplate = template.replace(/\{index}/g, imagen.Gif.img_ruta).replace('{nombre}', imagen.Gif.img_nombre);
 			urlImagen = '<?php echo Router::url('/', true)?>'+imagen.Gif.img_ruta;
-			html += contenedorTemplate.replace('{template}', tagTemplate).replace('{social}', comTwitter.replace('{urlImagen}', urlImagen));
+			tagDescargarImagen = btnDescargar.replace('{urlImagen}', urlImagen);
+			html += contenedorTemplate.replace('{template}', tagTemplate).replace('{social}', comTwitter.replace('{urlImagen}', urlImagen)).replace('{descargarImagen}', tagDescargarImagen).replace('{numLikes}', imagen.Like.length).replace('{imagenId}', imagen.Gif.imagen_id);
 		});
 		contenedorImagenes.html(html);
 	}
+
+	/**
+	* Función que permite dar like a una imagen
+	* 
+	* @author René Daniel Galicia Vázquez <renedaniel191992@gmail.com>
+	* @param int imagenId id de la imagen a la que se le dará el like
+	* @param element botonLike elemento del DOM al que se le está dando el clic, lo usamos para actualizar el núm de likes
+	* @return void
+	*/
+    function darLike(imagenId, botonLike) {
+    	$.ajax({
+    		url: '<?php echo $this->Html->url(["controller" => "principal","action" => "darLike"]); ?>/'+imagenId,
+    		type: 'GET',
+	        success: function(data, textStatus, request) {
+	        	like = request.getResponseHeader('like');
+	        	faltaSesion = request.getResponseHeader('faltaSesion');
+	        	numLikes = request.getResponseHeader('numLikes');
+	        	if (like == true) {
+	        		$(botonLike).prev().html(numLikes);
+	        	}else if (like == 'already') {
+	        		Materialize.toast('Ya has dado me gusta a esta imagen', 3000, 'mensaje-alerta');
+	        	}
+	        	if (faltaSesion == true) {
+	        		Materialize.toast('Inicia sesión para dar me gusta', 3000, 'mensaje-alerta');	
+	        	}
+	        }
+    	});
+    }
 
 	/**
 	* Función que genera la vista carousel de un arreglo de imágenes

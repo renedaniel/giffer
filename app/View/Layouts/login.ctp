@@ -12,7 +12,7 @@
          echo $this->Html->css('materialize.min.css'); 
          echo $this->Html->css('login.css');
          //Scripts js de la aplicación
-         echo $this->Html->script('jquery-3.1.1.min.js');
+         echo $this->Html->script('jquery.min.js');
          echo $this->Html->script('materialize.min.js');
          echo $this->Html->script('init.js');
          

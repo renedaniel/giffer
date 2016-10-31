@@ -139,10 +139,6 @@ $(document).ready(function() {
 		$.ajax({
 			url: url,
 			type: 'GET',
-			beforeSend: function( xhr ) {
-				//Mostramos mensaje de envío cuando se procese los datos
-				//loader.show('fast');
-			},
 	        success: function(data, textStatus, request) {
 	        	imagenId = request.getResponseHeader('imagenId');
 	           	imagenEstatus = request.getResponseHeader('imagenEstatus');
