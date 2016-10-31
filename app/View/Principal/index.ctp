@@ -49,7 +49,7 @@
 	var templateCarousel = '<a onclick="cargarImagenesCarousel(this.id)" class="carousel-item" id="{id}"><img src="{urlImagen}"></a>';
 	var html = '';
 	//Generamos un contenedor para el template
-	var contenedorTemplate = '<div class="col s12 m3"><div class="card"><div class="card-image">{template}</div><div class="card-action"><span>{numLikes}</span> Me gusta <i onclick="darLike({imagenId}, this);" class="fa fa-thumbs-up iconoImagen" aria-hidden="true"></i> {descargarImagen} {social}</div></div></div>';
+	var contenedorTemplate = '<div class="col s12 m3"><div class="card"><div class="card-image">{template}</div><div class="card-action"><span>{numLikes}</span> Me gusta <i onclick="darLike({imagenId}, this);" class="fa fa-thumbs-up iconoImagen" aria-hidden="true"></i> {descargarImagen} <div>{social}</div></div></div></div>';
 	//Generamos el template para los botones de compartir
 	var comTwitter = '<a class="btnz share twitter" onclick="mostrarCompartirTwitter(\'{urlImagen}\');">Compartir <i class="fa fa-twitter" aria-hidden="true"></i></a>';
 	//Generamos botón para descargar la imagen
