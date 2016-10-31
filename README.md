@@ -1,6 +1,7 @@
 # Giffer
 
 Giffer es una aplicación Web que permite a los usuarios subir imágenes en formato Gif para poderlas compartir con sus compas.
+
 [DEMO](http://prauprau.net/giffer) - Prueba la aplicación en linea
 
 ## Sobre el desarrollo de la aplicación
@@ -27,7 +28,9 @@ La carpeta que contiene el proyecto, que a partir de ahora será referida como [
 La base de datos debe estar codificada en utf8. 
 
 El usuario administrador tiene los siguientes datos de acceso:
+
 •	Correo electrónico: admin@gmail.com
+
 •	Contraseña: hola123.
 
 ## Archivos del sitio Web
