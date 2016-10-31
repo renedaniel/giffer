@@ -20,10 +20,15 @@ class UsuariosController extends AppController
             $this->loadModel('Gif');
             $this->layout = false;
             $this->view = '/Elements/json';
+            $condiciones = ['usuario_id' => $this->Session->read('Usuario.usuario_id')];
+            if ($this->Session->read('Usuario.usu_tipo') == ADM) {
+                //Si el usuario es admin, mostramos todas las imágenes y no sólo las de el
+                $condiciones = [];
+            }
             $gifs['data'] = $this->Gif->find('all', [
                 'fields' => ['imagen_id','img_ruta', 'img_nombre', 'img_estatus'], 
                 'order' => 'img_creado DESC',
-                'conditions' => ['usuario_id' => $this->Session->read('Usuario.usuario_id')]
+                'conditions' => $condiciones
             ]);
             $this->set('data', json_encode($gifs));
         }

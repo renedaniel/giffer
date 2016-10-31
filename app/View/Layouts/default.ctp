@@ -77,13 +77,12 @@
     </div>
   </section>
   <!-- Footer -->
-  <footer class="page-footer teal grey darken-3">
+  <footer class="page-footer site-footer teal grey darken-3">
     <div class="footer-copyright">
       <div class="container">
       Made by <a class="brown-text text-lighten-3" href="#">René Daniel</a>
       </div>
     </div>
   </footer>
-  <?php echo $this->element('sql_dump'); ?>
   </body>
 </html>

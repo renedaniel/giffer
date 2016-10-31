@@ -2,7 +2,7 @@
 <?php echo $this->Html->script('lightbox.min.js') ?>
 <?php echo $this->Html->css('datatables.min.css') ?>
 <?php echo $this->Html->css('lightbox.min.css') ?>
-<?php $this->assign('title', '¡Sube tu Gif!') ?>
+<?php $this->assign('title', 'Dashboard') ?>
 <h3 class="titulo-seccion">Dashboard</h1>
 <div id="bandejaUsuario">
    <table id="bandeja" class="display responsive-table" cellspacing="0" width="100%">

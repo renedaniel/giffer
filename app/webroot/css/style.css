@@ -173,7 +173,7 @@ nav a.button-collapse i {
   background-color: #e91e63 !important;
 }
 
-#botonCargar {
+#botonCargar, #mensajeBandeja {
   font-family: "Fjalla One",sans-serif;
 }
 /* Estilos para la bandeja de usuario */
@@ -238,3 +238,80 @@ table.dataTable thead th{
 .lb-container {
   padding: 0px !important;
 }
+
+/* Estilo para los botones de tipo de vista */
+#mostrarCarousel, #mostrarMosaico {
+  font-size: 40px !important;
+  margin-right: 20px;
+  cursor: pointer;
+  color: #212121 !important;
+}
+
+/* Colocamos el footer hasta abajo */
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+#contenidoLayout {
+  min-height: 61%;
+  margin-bottom: -70px; 
+}
+
+#contenidoLayout:after {
+  content: "";
+  display: block;
+}
+.site-footer, #contenidoLayout:after {
+  height: 70px; 
+}
+
+/* Estilo botón ir arriba */
+#return-to-top {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#return-to-top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#return-to-top:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+#return-to-top:hover i {
+    color: #fff;
+    top: 5px;
+}
+
+body{background: #eee ;font-family: 'Open Sans', sans-serif;}h3{font-size: 30px; font-weight: 400;text-align: center;margin-top: 50px;}h3 i{color: #444;}
