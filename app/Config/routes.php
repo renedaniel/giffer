@@ -28,7 +28,6 @@
     Router::connect('/login', ['controller' => 'usuarios', 'action' => 'login']);
     Router::connect('/subir-gif', ['controller' => 'usuarios', 'action' => 'subirGif']);
     Router::connect('/dashboard', ['controller' => 'usuarios', 'action' => 'index']);
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
