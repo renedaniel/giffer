@@ -21,10 +21,13 @@
  */
  
 /**
- * Here, we are connecting '/' (base path) to controller called 'Pages',
- * its action called 'display', and we pass a param to select the view file
- * to use (in this case, /app/View/Pages/home.ctp)...
+ * Definimos las rutas de la aplicación
  */
+    Router::connect('/', ['controller' => 'principal', 'action' => 'index']);
+    Router::connect('/registro', ['controller' => 'usuarios', 'action' => 'edicionUsuario']);
+    Router::connect('/login', ['controller' => 'usuarios', 'action' => 'login']);
+    Router::connect('/subir-gif', ['controller' => 'usuarios', 'action' => 'subirGif']);
+    Router::connect('/dashboard', ['controller' => 'usuarios', 'action' => 'index']);
 	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

@@ -5,7 +5,6 @@
   <meta http-equiv="Content-Type" content="text/html"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title><?php echo $this->fetch('title') ?> || Giffer</title>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <?php
     //Meta de la aplicación
     echo $this->Html->meta('icon');
@@ -14,7 +13,7 @@
     echo $this->Html->css('font-awesome.min.css');
     echo $this->Html->css('style.css');
     //Scripts js de la aplicación
-    //echo $this->Html->script('jquery-3.1.1.min.js');
+    echo $this->Html->script('jquery.min.js');
     echo $this->Html->script('materialize.min.js');
     echo $this->Html->script('init.js');
 
